@@ -1,0 +1,23 @@
+{
+  "name": "music-library",
+  "version": "1.0.0",
+  "description": "The aim of this project is to design and implement an API which can perform CRUD operations on a database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VeeUye/music-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VeeUye/music-library/issues"
+  },
+  "homepage": "https://github.com/VeeUye/music-library#readme",
+  "devDependencies": {
+    "eslint": "^8.14.0"
+  }
+}
