@@ -20,7 +20,8 @@ const dropDatabase = async () => {
     // drop database
     // await db.query(`DROP DATABASE ${DB_NAME}`);
     // await db.close();
-    await db.query(`DROP DATABASE ${DB_NAME}`, () => db.end());
+    await db.query(`DROP DATABASE ${DB_NAME}`);
+    await db.end();
   } catch (err) {
     // if something goes wrong, console.log the error and the current environment variables
     console.log(
@@ -38,4 +39,4 @@ const dropDatabase = async () => {
 };
 
 // run the async function
-// dropDatabase();
+dropDatabase();
