@@ -12,5 +12,5 @@ exports.createArtist = async (req, res) => {
   } catch (err) {
     res.sendStatus(500);
   }
-  db.close();
+  await db.end();
 };
