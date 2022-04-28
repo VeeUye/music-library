@@ -25,4 +25,15 @@ exports.readArtist = async (req, res) => {
   } catch (err) {
     res.status(500);
   }
+  await db.end();
+};
+
+exports.readSingleArtist = async (req, res) => {
+  const db = await getDb();
+  const id = req.params.artistId;
+
+  const [artist] = await db.query('SELECT * FROM Artist WHERE id = ?', [id]);
+
+  !artist[0] ? res.sendStatus(404) : res.status(200).json(artist[0]);
+  await db.end();
 };

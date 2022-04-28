@@ -6,4 +6,6 @@ router.post('/', artistController.createArtist);
 
 router.get('/', artistController.readArtist);
 
+router.get('/:artistId', artistController.readSingleArtist);
+
 module.exports = router;
