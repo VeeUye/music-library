@@ -1,3 +1,4 @@
+// const db = require('../services/db');
 const getDb = require('../services/db');
 
 exports.createArtist = async (req, res) => {
@@ -14,4 +15,14 @@ exports.createArtist = async (req, res) => {
     res.sendStatus(500);
   }
   await db.end();
+};
+
+exports.readArtist = async (req, res) => {
+  const db = await getDb();
+  try {
+    const [artists] = await db.query('SELECT * FROM Artist');
+    res.status(200).json(artists);
+  } catch (err) {
+    res.status(500);
+  }
 };
