@@ -40,10 +40,18 @@ exports.readSingleArtist = async (req, res) => {
 
 exports.updateArtist = async (req, res) => {
   const db = await getDb();
-  const id = req.params.artistId;
+  const { artistId } = req.params;
+  const data = req.body;
+  try {
+    const [{ affectedRows }] = await db.query(
+      'UPDATE Artist SET ? WHERE id = ?',
+      [data, artistId]
+    );
 
-  const [artist] = await db.query('SELECT * FROM Artist WHERE id = ?', [id]);
+    !affectedRows ? res.sendStatus(404) : res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 
-  !artist[0] ? res.sendStatus(404) : res.status(200).json(artist[0]);
-  await db.end();
+  db.close();
 };

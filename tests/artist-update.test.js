@@ -45,7 +45,7 @@ describe('update artist', () => {
           [artist.id]
         );
 
-        expect(newArtistRecord).to.equal('new name');
+        expect(newArtistRecord.name).to.equal('new name');
       });
 
       it('returns a 404 if the artist is not in the database', async () => {
