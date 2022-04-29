@@ -1,4 +1,3 @@
-// const db = require('../services/db');
 const getDb = require('../services/db');
 
 exports.createArtist = async (req, res) => {
@@ -46,6 +45,23 @@ exports.updateArtist = async (req, res) => {
     const [{ affectedRows }] = await db.query(
       'UPDATE Artist SET ? WHERE id = ?',
       [data, artistId]
+    );
+
+    !affectedRows ? res.sendStatus(404) : res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+
+  db.close();
+};
+
+exports.deleteArtist = async (req, res) => {
+  const db = await getDb();
+  const { artistId } = req.params;
+  try {
+    const [{ affectedRows }] = await db.query(
+      'DELETE FROM Artist WHERE id = ?',
+      [artistId]
     );
 
     !affectedRows ? res.sendStatus(404) : res.sendStatus(200);
