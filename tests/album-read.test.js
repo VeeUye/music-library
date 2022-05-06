@@ -3,7 +3,7 @@ const request = require('supertest');
 const getDb = require('../src/services/db');
 const app = require('../src/app');
 
-describe('read artist', () => {
+describe('read album', () => {
   let db;
   let artists;
   let albums;
@@ -43,6 +43,7 @@ describe('read artist', () => {
         artists[2].id,
       ]),
     ]);
+    [albums] = await db.query('SELECT * FROM Album');
   });
 
   afterEach(async () => {

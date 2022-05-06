@@ -15,3 +15,14 @@ exports.createAlbum = async (req, res) => {
   }
   await db.end();
 };
+
+exports.readAlbum = async (req, res) => {
+  const db = await getDb();
+  try {
+    const [album] = await db.query('SELECT * FROM Album');
+    res.status(200).json(album);
+  } catch (err) {
+    res.status(500);
+  }
+  await db.end();
+};
