@@ -44,6 +44,7 @@ const setUpDatabase = async () => {
       year INT(4), 
       artistId INT,
       FOREIGN KEY (artistId) REFERENCES Artist(id)
+      ON DELETE CASCADE
     )`);
     await db.end();
   } catch (err) {
