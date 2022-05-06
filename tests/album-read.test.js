@@ -68,21 +68,21 @@ describe('read album', () => {
     });
   });
 
-  //   describe('/artist/:artistId', () => {
-  //     describe('GET', () => {
-  //       it('returns a single artist with the correct id', async () => {
-  //         const expected = artists[0];
-  //         const res = await request(app).get(`/artist/${expected.id}`).send();
+  describe('/album/:albumId', () => {
+    describe('GET', () => {
+      it('returns a single album with the correct id', async () => {
+        const expected = albums[0];
+        const res = await request(app).get(`/album/${expected.id}`).send();
 
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body).to.deep.equal(expected);
-  //       });
+        expect(res.status).to.equal(200);
+        expect(res.body).to.deep.equal(expected);
+      });
 
-  //       it('returns a 404 if the artist is not in the database', async () => {
-  //         const res = await request(app).get('/artist/999999').send();
+      it('returns a 404 if the album is not in the database', async () => {
+        const res = await request(app).get('/album/999999').send();
 
-  //         expect(res.status).to.equal(404);
-  //       });
-  //     });
-  //   });
+        expect(res.status).to.equal(404);
+      });
+    });
+  });
 });

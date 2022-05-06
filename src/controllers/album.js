@@ -26,3 +26,13 @@ exports.readAlbum = async (req, res) => {
   }
   await db.end();
 };
+
+exports.readSingleAlbum = async (req, res) => {
+  const db = await getDb();
+  const id = req.params.albumId;
+
+  const [album] = await db.query('SELECT * FROM Album WHERE id = ?', [id]);
+
+  !album[0] ? res.sendStatus(404) : res.status(200).json(album[0]);
+  await db.end();
+};
