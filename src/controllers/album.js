@@ -54,3 +54,20 @@ exports.updateAlbum = async (req, res) => {
 
   db.close();
 };
+
+exports.deleteAlbum = async (req, res) => {
+  const db = await getDb();
+  const { albumId } = req.params;
+  try {
+    const [{ affectedRows }] = await db.query(
+      'DELETE FROM Album WHERE id = ?',
+      [albumId]
+    );
+
+    !affectedRows ? res.sendStatus(404) : res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+
+  db.close();
+};
