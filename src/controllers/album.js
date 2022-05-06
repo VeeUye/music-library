@@ -36,3 +36,21 @@ exports.readSingleAlbum = async (req, res) => {
   !album[0] ? res.sendStatus(404) : res.status(200).json(album[0]);
   await db.end();
 };
+
+exports.updateAlbum = async (req, res) => {
+  const db = await getDb();
+  const { albumId } = req.params;
+  const data = req.body;
+  try {
+    const [{ affectedRows }] = await db.query(
+      'UPDATE Album SET ? WHERE id = ?',
+      [data, albumId]
+    );
+
+    !affectedRows ? res.sendStatus(404) : res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+
+  db.close();
+};
