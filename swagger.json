@@ -1,0 +1,383 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Music Library",
+    "description": "An API for interacting with a simple music library database",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "schemes": ["http", "https"],
+  "tags": [
+    {
+      "name": "Music Library",
+      "description": "Endpoints for interacting with artists and albums"
+    }
+  ],
+  "paths": {
+    "/artist": {
+      "post": {
+        "tags": ["Artist"],
+        "summary": "Add a new artist to the library",
+        "parameters": [
+          {
+            "name": "AddArtist",
+            "in": "body",
+            "description": "Artist object that needs to be added to library",
+            "schema": {
+              "type": "object",
+              "required": ["name", "genre"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "genre": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ArtistObject"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "get": {
+        "summary": "reads all artists from the database",
+        "tags": ["Artist"],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "genre",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns array of artists",
+            "schema": {
+              "$ref": "#/definitions/ArtistObjects"
+            }
+          }
+        }
+      }
+    },
+    "/artist/{id}": {
+      "get": {
+        "summary": "Reads artist by id",
+        "tags": ["Artist"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "succesful operation",
+            "schema": {
+              "$ref": "#/definitions/ArtistObject"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "update an artist in the database",
+        "tags": ["Artist"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          },
+          {
+            "name": "updateArtist",
+            "in": "body",
+            "description": "Updated artist object to be added to library",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "genre": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "type": "object",
+              "required": ["artistUpdated"],
+              "properties": {
+                "artistUpdated": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete an artist in the database",
+        "tags": ["Artist"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted",
+            "schema": {
+              "type": "object",
+              "required": ["artistDeleted"],
+              "properties": {
+                "artistDeleted": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/{id}/album": {
+      "post": {
+        "tags": ["Album"],
+        "summary": "creates a new album in the database",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          },
+          {
+            "name": "createAlbum",
+            "in": "body",
+            "description": "create an album in the library",
+            "schema": {
+              "type": "object",
+              "required": ["name", "year"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "year": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AlbumObject"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      }
+    },
+    "/album": {
+      "get": {
+        "summary": "Returns all albums in the library",
+        "tags": ["Album"],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "year",
+            "type": "integer",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns array of albums",
+            "schema": {
+              "$ref": "#/definitions/AlbumObjects"
+            }
+          }
+        }
+      }
+    },
+    "/album/{id}": {
+      "get": {
+        "summary": "Read an album by id",
+        "tags": ["Album"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "succesful operation",
+            "schema": {
+              "$ref": "#/definitions/AlbumObject"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "update an album in the library",
+        "tags": ["Album"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          },
+          {
+            "name": "updateAlbum",
+            "in": "body",
+            "description": "album object to be added to the library",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "year": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "number of albums updated",
+            "schema": {
+              "type": "object",
+              "required": ["albumsUpdated"],
+              "properties": {
+                "albumsUpdated": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete an album by id",
+        "tags": ["Album"],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted",
+            "schema": {
+              "type": "object",
+              "required": ["albumDeleted"],
+              "properties": {
+                "albumDeleted": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ArtistObjects": {
+      "properties": {
+        "artist": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ArtistObject"
+          }
+        }
+      }
+    },
+    "ArtistObject": {
+      "required": ["id", "name", "genre"],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        }
+      }
+    },
+    "AlbumObjects": {
+      "properties": {
+        "artist": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlbumObject"
+          }
+        }
+      }
+    },
+    "AlbumObject": {
+      "required": ["id", "name", "year"],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "artistId": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

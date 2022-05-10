@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "express": "^4.18.0",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.3.0"
   }
 }
