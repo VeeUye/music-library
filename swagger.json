@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "Music Library",
-    "description": "An API for interacting with a simple music library database",
+    "description": "An API for interacting with a simple music library database. Created by Vee Uye as part of the [Manchester Codes Software Engineering Bootcamp](https://www.manchestercodes.com/courses/bootcamp#curriculum). For more on this and my other projects, check out my [github](https://github.com/VeeUye).",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -13,12 +13,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "schemes": ["http", "https"],
-  "tags": [
-    {
-      "name": "Music Library",
-      "description": "Endpoints for interacting with artists and albums"
-    }
-  ],
+
   "paths": {
     "/artist": {
       "post": {
@@ -26,18 +21,21 @@
         "summary": "Add a new artist to the library",
         "parameters": [
           {
-            "name": "AddArtist",
+            "name": "Add",
             "in": "body",
-            "description": "Artist object that needs to be added to library",
+            "required": true,
+            "description": "Artist object to be added to library",
             "schema": {
               "type": "object",
               "required": ["name", "genre"],
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "Jurrasic 5"
                 },
                 "genre": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "Hip Hop"
                 }
               }
             }
@@ -45,11 +43,13 @@
         ],
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "Artist added",
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/ArtistObject"
             }
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation"
           }
         },
         "produces": ["application/json"]
@@ -57,24 +57,15 @@
       "get": {
         "summary": "reads all artists from the database",
         "tags": ["Artist"],
-        "parameters": [
-          {
-            "name": "name",
-            "type": "string",
-            "in": "query"
-          },
-          {
-            "name": "genre",
-            "type": "string",
-            "in": "query"
-          }
-        ],
         "responses": {
           "200": {
             "description": "returns array of artists",
             "schema": {
               "$ref": "#/definitions/ArtistObjects"
             }
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation"
           }
         }
       }
@@ -86,17 +77,23 @@
         "parameters": [
           {
             "in": "path",
-            "type": "number",
+            "type": "integer",
             "name": "id",
             "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "succesful operation",
+            "description": "Successful operation",
             "schema": {
               "$ref": "#/definitions/ArtistObject"
             }
+          },
+          "404": {
+            "description": "Artist id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       },
@@ -106,22 +103,26 @@
         "parameters": [
           {
             "in": "path",
-            "type": "number",
+            "description": "artist id",
+            "type": "integer",
             "name": "id",
             "required": true
           },
           {
-            "name": "updateArtist",
+            "name": "body",
+            "required": true,
             "in": "body",
             "description": "Updated artist object to be added to library",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "Mos Def"
                 },
                 "genre": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "Hip Hop"
                 }
               }
             }
@@ -129,16 +130,23 @@
         ],
         "responses": {
           "200": {
-            "description": "Updated",
+            "description": "Updated Artist",
             "schema": {
               "type": "object",
-              "required": ["artistUpdated"],
+              "required": ["affectedRows"],
               "properties": {
-                "artistUpdated": {
-                  "type": "integer"
+                "affectedRows": {
+                  "type": "integer",
+                  "example": 1
                 }
               }
             }
+          },
+          "404": {
+            "description": "Artist id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       },
@@ -155,44 +163,52 @@
         ],
         "responses": {
           "200": {
-            "description": "deleted",
+            "description": "Artist deleted",
             "schema": {
               "type": "object",
-              "required": ["artistDeleted"],
+              "required": ["affectedRows"],
               "properties": {
-                "artistDeleted": {
-                  "type": "integer"
+                "affectedRows": {
+                  "type": "integer",
+                  "example": 1
                 }
               }
             }
+          },
+          "404": {
+            "description": "Artist id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       }
     },
-    "/artist/{id}/album": {
+    "/album": {
       "post": {
         "tags": ["Album"],
         "summary": "creates a new album in the database",
         "parameters": [
           {
-            "in": "path",
-            "type": "number",
-            "name": "id",
-            "required": true
-          },
-          {
-            "name": "createAlbum",
+            "name": "body",
             "in": "body",
+            "required": true,
             "description": "create an album in the library",
             "schema": {
               "type": "object",
-              "required": ["name", "year"],
+              "required": ["name", "year", "artistId"],
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "The Craft"
                 },
                 "year": {
-                  "type": "number"
+                  "type": "number",
+                  "example": 2005
+                },
+                "artistId": {
+                  "type": "integer",
+                  "example": 3
                 }
               }
             }
@@ -200,38 +216,31 @@
         ],
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "Album created",
             "schema": {
-              "type": "object",
               "$ref": "#/definitions/AlbumObject"
             }
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         },
         "produces": ["application/json"]
-      }
-    },
-    "/album": {
+      },
+
       "get": {
         "summary": "Returns all albums in the library",
         "tags": ["Album"],
-        "parameters": [
-          {
-            "name": "name",
-            "type": "string",
-            "in": "query"
-          },
-          {
-            "name": "year",
-            "type": "integer",
-            "in": "query"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "returns array of albums",
             "schema": {
               "$ref": "#/definitions/AlbumObjects"
             }
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       }
@@ -250,10 +259,16 @@
         ],
         "responses": {
           "200": {
-            "description": "succesful operation",
+            "description": "Successful operation",
             "schema": {
               "$ref": "#/definitions/AlbumObject"
             }
+          },
+          "404": {
+            "description": "Album id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       },
@@ -268,17 +283,20 @@
             "required": true
           },
           {
-            "name": "updateAlbum",
+            "name": "body",
             "in": "body",
+            "required": true,
             "description": "album object to be added to the library",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "The Craft"
                 },
                 "year": {
-                  "type": "integer"
+                  "type": "integer",
+                  "example": 2006
                 }
               }
             }
@@ -289,13 +307,20 @@
             "description": "number of albums updated",
             "schema": {
               "type": "object",
-              "required": ["albumsUpdated"],
+              "required": ["affectedRows"],
               "properties": {
-                "albumsUpdated": {
-                  "type": "integer"
+                "affectedRows": {
+                  "type": "integer",
+                  "example": 1
                 }
               }
             }
+          },
+          "404": {
+            "description": "Album id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       },
@@ -312,16 +337,23 @@
         ],
         "responses": {
           "200": {
-            "description": "deleted",
+            "description": "Album deleted",
             "schema": {
               "type": "object",
-              "required": ["albumDeleted"],
+              "required": ["affectedRows"],
               "properties": {
-                "albumDeleted": {
-                  "type": "integer"
+                "affectedRows": {
+                  "type": "integer",
+                  "example": 1
                 }
               }
             }
+          },
+          "404": {
+            "description": "Album id not found."
+          },
+          "500": {
+            "description": "Music Library API is currently unable to handle this operation."
           }
         }
       }
@@ -338,20 +370,25 @@
         }
       }
     },
+
     "ArtistObject": {
       "required": ["id", "name", "genre"],
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "example": 1
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "example": "Jurrasic 5"
         },
         "genre": {
-          "type": "string"
+          "type": "string",
+          "example": "Hip Hop"
         }
       }
     },
+
     "AlbumObjects": {
       "properties": {
         "artist": {
@@ -366,16 +403,20 @@
       "required": ["id", "name", "year"],
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "integer",
+          "example": 1
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "example": "The Craft"
         },
         "year": {
-          "type": "integer"
+          "type": "integer",
+          "example": 2005
         },
         "artistId": {
-          "type": "integer"
+          "type": "integer",
+          "example": 3
         }
       }
     }
