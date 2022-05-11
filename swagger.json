@@ -13,7 +13,7 @@
   "basePath": "/",
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "schemes": ["http", "https"],
+  "schemes": ["http"],
 
   "paths": {
     "/artist": {
