@@ -3,7 +3,7 @@ const app = require('./src/app.js');
 const APP_PORT = process.env.PORT || 4000;
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Music Library API');
 });
 
 app.listen(APP_PORT, () => {
