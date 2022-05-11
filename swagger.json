@@ -305,7 +305,7 @@
         ],
         "responses": {
           "200": {
-            "description": "number of albums updated",
+            "description": "Album updated",
             "schema": {
               "type": "object",
               "required": ["affectedRows"],
