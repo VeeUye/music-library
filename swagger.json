@@ -9,6 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
+  "host": "https://vees-music-library.herokuapp.com",
   "basePath": "/",
   "consumes": ["application/json"],
   "produces": ["application/json"],
