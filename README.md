@@ -1,6 +1,6 @@
 # Music Library 🎹
 
-The aim of this project is to design and implement an API which can perform CRUD operations on a database.
+A simple music library API that performs CRUD operations on a SQL database.
 
 The project is part of the [Manchester Codes](https://manchestercodes.com) Fast Track Software Engineering Bootcamp.
 
@@ -13,7 +13,21 @@ The project is part of the [Manchester Codes](https://manchestercodes.com) Fast 
 - Postman
 - Swagger
 - Docker
-- Chai
+- Chai, Mocha, SuperTest
+
+## Using the Database
+
+### Heroku
+
+This app is hosted at [https://vees-music-library.herokuapp.com/](https://vees-music-library.herokuapp.com/). In order to interact with the database, you can use [Postman](https://www.postman.com/) to make HTTP requests.
+
+For a complete description of the available HTTP methods for this app, please visit [https://vees-music-library.herokuapp.com/api-docs](https://vees-music-library.herokuapp.com/api-docs/#/).
+
+## Roadmap
+
+- [ ] Rewrite album creation functionality to require artistId in reqest parameters
+- [ ] Add Songs table and associated functionality
+- [ ] Create GUI
 
 ## Contributions
 
