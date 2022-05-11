@@ -4,11 +4,16 @@ The aim of this project is to design and implement an API which can perform CRUD
 
 The project is part of the [Manchester Codes](https://manchestercodes.com) Fast Track Software Engineering Bootcamp.
 
-## Technologies
+## Technologies & Tools
 
 - JavaScript
 - MySQL
-- Express
+- express.js
+- node.js
+- Postman
+- Swagger
+- Docker
+- Chai
 
 ## Contributions
 
