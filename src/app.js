@@ -13,3 +13,15 @@ app.use('/artist', artistRouter);
 app.use('/album', albumRouter);
 
 module.exports = app;
+
+// "definitions": {
+//   "ArtistObjects": {
+//     "properties": {
+//       "artist": {
+//         "type": "array",
+//         "items": {
+//           "$ref": "#/definitions/ArtistObject"
+//         }
+//       }
+//     }
+//   },
