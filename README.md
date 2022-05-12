@@ -26,6 +26,7 @@ For a complete description of the available HTTP methods for this app, please vi
 ## Roadmap
 
 - [ ] Rewrite album creation functionality to require artistId in reqest parameters
+- [ ] Edit update album endpoint description to emphasise partial update of album object
 - [ ] Add Songs table and associated functionality
 - [ ] Create GUI
 
