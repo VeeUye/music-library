@@ -27,18 +27,7 @@ const setUpDatabase = async () => {
           user: DB_USER,
           password: DB_PASSWORD,
           port: DB_PORT,
-          database: DB_NAME,
         });
-
-    // const db = await mysql.createConnection({
-    //   host: DB_HOST,
-    //   user: DB_USER,
-    //   password: DB_PASSWORD,
-    //   port: DB_PORT,
-    // });
-
-    // await db.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
-    // await db.query(`USE ${DB_NAME}`);
 
     !CLEARDB_DATABASE_URL &&
       (await db.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`));
