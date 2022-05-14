@@ -38,12 +38,14 @@ You can also run Music Library locally. This guide assumes you have [Docker](htt
 > #### 3. Pull a MySQL Docker container
 >
 > Run this command in the terminal to install a MySQL docker image:
+>
 > `docker pull mysql/mysql-server:latest`
 >
 > #### 4. Run the container
 >
 > Run this command in the terminal:  
 > `docker run -d -p 3307:3306 --name music_library_mysql -e MYSQL_ROOT_PASSWORD=password mysql`
+>
 > Replace `password` with a password of your choosing.
 >
 > #### 5. Set up your environment variables
@@ -60,6 +62,7 @@ You can also run Music Library locally. This guide assumes you have [Docker](htt
     PORT=3000
 
 > `your_password` should be the password you selected in step 4.
+>
 > In `.env.test`, copy and paste in the code from `.env` with this alteration: `DB_NAME=music_library_test`
 >
 > #### 6. Run the Music Library
